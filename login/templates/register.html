@@ -1,0 +1,91 @@
+{% include 'layout.html' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Registration</title>
+    </head>
+    <body align="center">
+        <div>
+            <h2>Register</h2>
+        </div>
+        <form method="POST" action="register">
+            {% csrf_token %}
+            <div>
+                <label>Username</label>
+                <input type="text" name="name" value="" required='required'>
+            </div>
+            <div>
+                <label>Address</label>
+                <input type="text" name="address" value="" required='required'>
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" value="" required='required'>
+            </div>
+            <div>
+                <label>Phone</label>
+                <input type="text" name="phone" value="" required='required'>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="text" name="password" value="" required='required'>
+            </div>
+            <!-- <p><input type="checkbox" name="checklog" value="customer">customer</p>
+            <p><input type="checkbox" name="checklog" value="shop">shop</p>
+            <p><input type="checkbox" name="checklog" value="deliveryman">delivery man</p> -->
+            <select name="checklog" id="checklog"  required='required'>
+                <option value=""></option>
+                <option value="customer">Customer</option>
+                <option value="shop">Shop</option>
+                <option value="deliveryman">Deliveryman</option>
+                <option value="admin">Admin</option>
+            </select>
+            <!-- {% if checklog == "shop" %}
+                <div>
+                    <h2>shop selected</h2>
+                </div>
+            {% endif %} -->
+            <div class="form-group">
+                <!-- <input type="text" id="loc" value=""> -->
+                <select name="loc" id="loc" required>
+                    {% for loc in locations %}
+                    <option value={{loc.id}}>{{ loc.loc}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <script>
+                $('#loc').hide();
+                $("#loc").trigger("change");
+                $("#checklog").change(function(){
+                    if($(this).val()=="shop"){
+                        $('#loc').show();
+                        $('#loc').attr('required', '');
+                        $('#loc').attr('data-error', 'This field is required.');
+                    }
+                    else{
+                        $('#loc').hide();
+                        $('#loc').removeAttr('required');
+                        $('#loc').removeAttr('data-error');
+                    }
+                } 
+                );
+                
+            </script>
+            
+            <div class="input-group">
+                <input type="submit"  name="reg_user" value="Register"/>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <h2 style="color:green;">{{message}}</h2>
+                {% endfor %}
+            {% endif %}
+            <p>
+                Aready a member? <a href="{% url 'login' %}">Sign in</a>
+            </p>
+        </form>
+
+    </body>
+</html>
+

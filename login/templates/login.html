@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <center>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        
+<!------ Include the above in your HEAD tag ---------->
+<!-- extra part start -->
+<!-- <div class="container">
+	<div class="row">
+		<input type="hidden" name="count" value="1" />
+        <div class="control-group" id="fields">
+            <label class="control-label" for="field1">Nice Multiple Form Fields</label>
+            <div class="controls" id="profs"> 
+                <form class="input-append">
+                    <div id="field"><input autocomplete="off" class="input" id="field1" 
+                        name="prof1" type="text" placeholder="Type something" data-items="8"/>
+                        <button id="b1" class="btn add-more" type="button">+</button></div>
+                </form>
+            <br>
+            <small>Press + to add another form field :)</small>
+            </div>
+        </div>
+	</div>
+</div>
+<script>
+$(document).ready(function(){
+    var next = 1;
+    $(".add-more").click(function(e){
+        e.preventDefault();
+        var addto = "#field" + next;
+        var addRemove = "#field" + (next);
+        next = next + 1;
+        var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + 
+        '" name="field' + next + '" type="text">';
+
+        var newInput = $(newIn);
+        var removeBtn = '<button id="remove' + (next - 1) + 
+        '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
+
+        var removeButton = $(removeBtn);
+        $(addto).after(newInput);
+        $(addRemove).after(removeButton);
+        $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+        $("#count").val(next);  
+        
+            $('.remove-me').click(function(e){
+                e.preventDefault();
+                var fieldNum = this.id.charAt(this.id.length-1);
+                var fieldID = "#field" + fieldNum;
+                $(this).remove();
+                $(fieldID).remove();
+            });
+    });
+    
+
+    
+});
+</script>
+ --><!-- extra part end -->
+        <div>
+            <h2>login</h2>
+        </div>
+            <form method="POST">
+                {% if messages %}
+                    {% for message in messages %}
+                        <h2 style="color:green;">{{message}}</h2>
+                    {% endfor %}
+                {% endif %}
+                {% csrf_token %}
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="text" name="password" requuired>
+                </div>
+                
+                <!-- <div>
+                <p><input type="checkbox" name="checklog" value="customer">customer</p>
+                <p><input type="checkbox" name="checklog" value="shop">shop</p>
+                <p><input type="checkbox" name="checklog" value="delivery man">delivery man</p>
+                </div> -->
+                
+                <select name="checklog" id="checklog" required='required'>
+                    <option value=""></option>
+                    <option value="customer">Customer</option>
+                    <option value="shop">Shop</option>
+                    <option value="deliveryman">Deliveryman</option>
+                    <option value="admin">Admin</option>
+                    
+                </select>
+                
+                
+                <!-- <button type="button" onclick="cond()">ok</button> -->
+                <div class="input-group">
+                    <input type="submit" name="login_user" value="Login"/>
+                </div>
+                
+                <p>
+                    Not yet amember? <a href="{% url 'register' %}">Sign up</a>
+                </p>
+            </form>
+        </center>
+    </body>
+</html>

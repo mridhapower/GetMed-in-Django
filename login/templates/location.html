@@ -1,0 +1,11 @@
+{% include 'layout.html' %}
+<h1 align="center">welcome to location</h1>
+<div class="form-group" align="center">
+    <!-- <input type="text" id="loc" value=""> -->
+    <select name="loc" id="loc" required>
+        <option value=""></option>
+        {% for loc in locations %}
+        <option value={{loc.id}}>{{ loc.loc}}</option>
+        {% endfor %}
+    </select>
+</div>
